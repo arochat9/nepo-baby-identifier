@@ -1,8 +1,25 @@
 "use client"
 
 import Link from "next/link";
+import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Home() {
+  // Pre-fetch actor count data using the query client directly
+  const queryClient = useQueryClient();
+  
+  // Use effect to prefetch actor count data once when component mounts
+  useEffect(() => {
+    const prefetchData = async () => {
+      // Prefetch the actor count data so it's available when navigating to the game page
+      await queryClient.prefetchQuery({
+        queryKey: ['actors', 'count'],
+        queryFn: () => fetch('/api/actors/getActorCount').then(res => res.json())
+      });
+    };
+    
+    prefetchData();
+  }, [queryClient]);
   return (
     <div 
       className="min-h-screen p-4 font-sans bg-gray-900"

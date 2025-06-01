@@ -17,6 +17,8 @@ export async function fetchActorCount(): Promise<IActorCounts> {
   }
   
   const data = await response.json();
+  
+  // Format the data consistently for both the hook and the prefetch
   return {
     totalCount: data.totalActorCount,
     totalNepoCount: data.totalNepoCount,
@@ -32,9 +34,9 @@ export function useActorCount(options = {}) {
   return useQuery({
     queryKey: ['actors', 'count'],
     queryFn: fetchActorCount,
-    staleTime: 0,        // Consider data stale immediately
-    gcTime: Infinity,    // Still never garbage collect the data
-    refetchOnMount: true, // Refetch when mounted (page reload)
+    staleTime: 1440 * 60 * 1000, // Consider data stale after 5 minutes
+    gcTime: Infinity,         // Never garbage collect the data
+    refetchOnMount: false,    // Use cached data if available
     refetchOnWindowFocus: false, // Don't refetch on window focus
     refetchOnReconnect: false,   // Don't refetch on reconnect
     ...options
