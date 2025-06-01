@@ -1,0 +1,158 @@
+"use client"
+
+import Link from "next/link";
+import { useActorsByIds } from "@/lib/hooks/useActors";
+import { useState, useCallback } from "react";
+import ActorButton from "./actorButton";
+import { useActorCount } from "@/lib/hooks/useActorCount";
+
+export default function GuessWhichActorPage() {
+  
+  // Get actor counts once when component loads
+  const { data: actorCountData } = useActorCount();
+
+  // Function to get random IDs
+  const getRandomIds = useCallback(() => {
+    if (actorCountData) {
+      return {
+        nepo: getRandomNumber(actorCountData.totalNepoCount),
+        nonNepo: getRandomNumber(actorCountData.totalNonNepoCount)
+      };
+    }
+    return { nepo: "1", nonNepo: "1" };
+  }, [actorCountData]);
+
+  // Initialize with random IDs
+  const [nonNepoActorIds, setNonNepoActorIds] = useState<string[]>([]);
+  const [nepoActorIds, setNepoActorIds] = useState<string[]>([]);
+  // State for tracking if positions are swapped
+  const [isSwapped, setIsSwapped] = useState(false);
+  // State for tracking user's guess result
+  const [guessResult, setGuessResult] = useState<{correct: boolean; message: string} | null>(null);
+  
+  // Set initial IDs if actor count data is available
+  if (actorCountData && nonNepoActorIds.length === 0 && nepoActorIds.length === 0) {
+    const ids = getRandomIds();
+    setNonNepoActorIds([ids.nonNepo]);
+    setNepoActorIds([ids.nepo]);
+    setIsSwapped(Math.random() >= 0.5);
+  }
+
+  // Use the React Query hook to fetch actors by their IDs
+  const { data: actors } = useActorsByIds(nonNepoActorIds, nepoActorIds);
+
+  // Generate new random IDs on refresh
+  const handleActorRefresh = () => {
+    const ids = getRandomIds();
+    setNonNepoActorIds([ids.nonNepo]);
+    setNepoActorIds([ids.nepo]);
+    setIsSwapped(Math.random() >= 0.5);
+    setGuessResult(null);
+  }
+  
+  // Handle user&apos;s guess
+  const handleGuess = (isNepoBaby: boolean) => {
+    if (!actors) return;
+    
+    if (isNepoBaby) {
+      setGuessResult({
+        correct: true,
+        message: `Correct! ${actors.nepoActors[0].actorName} is a nepo baby. ${actors.nepoActors[0].explanation || ''}`
+      });
+    } else {
+      setGuessResult({
+        correct: false,
+        message: `Wrong! ${actors.nepoActors[0].actorName} is the nepo baby. ${actors.nepoActors[0].explanation || ''}`
+      });
+    }
+  }
+
+  return (
+    <div 
+      className="min-h-screen p-4 font-sans bg-gray-900"
+      style={{
+        background: 'radial-gradient(circle at top left, #3a1a54, #111111), linear-gradient(to bottom right, #111111, #1c1c3d)'
+      }}
+    >
+      <main className="max-w-4xl mx-auto flex flex-col gap-[20px] items-center py-8 px-8 bg-gray-800/70 backdrop-blur-md rounded-xl border border-gray-700 shadow-2xl" 
+        style={{
+          boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 0, 128, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)'
+        }}
+      >
+        <h1 
+          className="text-5xl font-bold text-center tracking-tight" 
+          style={{ 
+            background: 'linear-gradient(90deg, #0ea5e9 0%, #d946ef 50%, #10b981 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            textShadow: '0 2px 20px rgba(217, 70, 239, 0.5)'
+          }}
+        >
+          NEPO BABY
+        </h1>
+        <p className="text-xl font-medium text-cyan-300 text-center mb-4">Can you spot the Hollywood royalty?</p>
+
+        <div className="flex gap-8 flex-wrap justify-center">
+          {actors && (
+            isSwapped ? (
+              <>
+                {actors.nonNepoActors?.[0] && (
+                  <ActorButton actor={actors.nonNepoActors[0]} isNepoBaby={false} onClick={handleGuess} />
+                )}
+                {actors.nepoActors?.[0] && (
+                  <ActorButton actor={actors.nepoActors[0]} isNepoBaby={true} onClick={handleGuess} />
+                )}
+              </>
+            ) : (
+              <>
+                {actors.nepoActors?.[0] && (
+                  <ActorButton actor={actors.nepoActors[0]} isNepoBaby={true} onClick={handleGuess} />
+                )}
+                {actors.nonNepoActors?.[0] && (
+                  <ActorButton actor={actors.nonNepoActors[0]} isNepoBaby={false} onClick={handleGuess} />
+                )}
+              </>
+            )
+          )}
+        </div>
+        
+        {guessResult && (
+          <div 
+            className={`p-4 mt-4 max-w-xl overflow-auto max-h-40 rounded-lg ${guessResult.correct ? 'bg-emerald-900/50 border border-emerald-500' : 'bg-red-900/50 border border-red-500'}`}
+            style={{
+              boxShadow: `0 0 15px ${guessResult.correct ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
+            }}
+          >
+            <p className={`text-base ${guessResult.correct ? 'text-emerald-200' : 'text-red-200'}`}>
+              {guessResult.correct ? '⭐ ' : '❌ '}
+              {guessResult.message}
+            </p>
+          </div>
+        )}
+        
+        <div className="flex gap-6 mt-6">
+          <button 
+            onClick={handleActorRefresh}
+            className="px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-medium rounded-lg hover:from-fuchsia-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+            style={{
+              boxShadow: '0 4px 10px rgba(217, 70, 239, 0.4)'
+            }}
+          >
+            New Actors
+          </button>
+
+          <Link 
+            href="/" 
+            className="px-6 py-3 border border-gray-600 bg-gray-800 transition-colors flex items-center justify-center hover:bg-gray-700 font-medium text-cyan-300 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105"
+          >
+            Back
+          </Link>
+        </div>
+      </main>
+    </div>
+  );
+}
+
+function getRandomNumber(max: number): string {
+  return String(Math.floor(Math.random() * max) + 1);
+};
