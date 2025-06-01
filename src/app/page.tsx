@@ -10,13 +10,13 @@ export default function Home() {
         background: 'radial-gradient(circle at top left, #3a1a54, #111111), linear-gradient(to bottom right, #111111, #1c1c3d)'
       }}
     >
-      <main className="max-w-4xl mx-auto flex flex-col gap-[20px] items-center py-8 px-8 bg-gray-800/70 backdrop-blur-md rounded-xl border border-gray-700 shadow-2xl" 
+      <main className="w-full max-w-4xl mx-auto flex flex-col gap-[15px] sm:gap-[20px] items-center py-6 sm:py-8 px-4 sm:px-8 bg-gray-800/70 backdrop-blur-md rounded-xl border border-gray-700 shadow-2xl" 
         style={{
           boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 0, 128, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)'
         }}
       >
         <h1 
-          className="text-5xl font-bold text-center tracking-tight" 
+          className="text-4xl sm:text-5xl font-bold text-center tracking-tight" 
           style={{ 
             background: 'linear-gradient(90deg, #0ea5e9 0%, #d946ef 50%, #10b981 100%)',
             WebkitBackgroundClip: 'text',
@@ -26,18 +26,18 @@ export default function Home() {
         >
           NEPO BABY GAME
         </h1>
-        <p className="text-xl font-semibold text-white text-center mb-4">How To Play</p>
+        <p className="text-lg sm:text-xl font-semibold text-white text-center mb-2 sm:mb-4">How To Play</p>
         
-        <div className="text-white max-w-2xl">
-          <div className="mb-6 p-5 bg-gray-900/70 rounded-lg border border-gray-700">
+        <div className="text-white w-full max-w-2xl">
+          <div className="mb-4 sm:mb-6 p-4 sm:p-5 bg-gray-900/70 rounded-lg border border-gray-700">
             <h2 className="text-xl font-bold mb-2 text-cyan-300">What is a Nepo Baby?</h2>
             <p className="mb-3">
               A &ldquo;nepo baby&rdquo; (short for nepotism baby) is a term for celebrities who had a significant career boost from their famous family connections.
             </p>
           </div>
           
-          <div className="mb-6 p-5 bg-gray-900/70 rounded-lg border border-gray-700">
-            <h2 className="text-xl font-bold mb-2 text-cyan-300">Game Rules</h2>
+          <div className="mb-4 sm:mb-6 p-4 sm:p-5 bg-gray-900/70 rounded-lg border border-gray-700">
+            <h2 className="text-lg sm:text-xl font-bold mb-2 text-cyan-300">Game Rules</h2>
             <ol className="list-decimal pl-5 space-y-2">
               <li>You&apos;ll be shown two actors side by side.</li>
               <li>One is a &ldquo;nepo baby&rdquo; who has famous family connections in entertainment.</li>
@@ -47,8 +47,8 @@ export default function Home() {
             </ol>
           </div>
           
-          <div className="mb-6 p-5 bg-gray-900/70 rounded-lg border border-gray-700">
-            <h2 className="text-xl font-bold mb-2 text-cyan-300">Tips</h2>
+          <div className="mb-4 sm:mb-6 p-4 sm:p-5 bg-gray-900/70 rounded-lg border border-gray-700">
+            <h2 className="text-lg sm:text-xl font-bold mb-2 text-cyan-300">Tips</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li>Look for actors with famous last names.</li>
               <li>Consider younger actors in major roles who might have had a &ldquo;fast track&rdquo; to success.</li>
@@ -59,7 +59,7 @@ export default function Home() {
         
         <Link
           href="/guessWhichActor"
-          className="mt-4 px-8 py-4 bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-bold rounded-lg hover:from-fuchsia-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105 text-lg"
+          className="w-full sm:w-auto mt-2 sm:mt-4 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-bold rounded-lg hover:from-fuchsia-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105 text-base sm:text-lg text-center"
           style={{
             boxShadow: '0 4px 10px rgba(217, 70, 239, 0.4)'
           }}
