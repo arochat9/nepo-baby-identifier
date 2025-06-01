@@ -32,11 +32,11 @@ export function useActorCount(options = {}) {
   return useQuery({
     queryKey: ['actors', 'count'],
     queryFn: fetchActorCount,
-    staleTime: Infinity, // Never consider data stale
-    gcTime: Infinity,    // Never garbage collect the data
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
+    staleTime: 0,        // Consider data stale immediately
+    gcTime: Infinity,    // Still never garbage collect the data
+    refetchOnMount: true, // Refetch when mounted (page reload)
+    refetchOnWindowFocus: false, // Don't refetch on window focus
+    refetchOnReconnect: false,   // Don't refetch on reconnect
     ...options
   });
 }

@@ -15,11 +15,13 @@ export async function POST(request: NextRequest) {
   const nepoActorIds = body.nepoActorIds ?? [];
   
   const nonNepoActorsOS = client(NepoBabyActor).where({
-    rowNumber: { $in: nonNepoActorIds }
+    nepoBaby: { $eq: false },
+    nepoBabyRowNumber: { $in: nonNepoActorIds }
   }).fetchPage({ $pageSize: 30 });
 
   const nepoActorsOS = client(NepoBabyActor).where({
-    rowNumber: { $in: nepoActorIds }
+    nepoBaby: { $eq: true },
+    nepoBabyRowNumber: { $in: nepoActorIds }
   }).fetchPage({ $pageSize: 30 });
 
   const [nonNepoActors, nepoActors]: [Osdk.Instance<NepoBabyActor>[], Osdk.Instance<NepoBabyActor>[]] = await Promise.all([

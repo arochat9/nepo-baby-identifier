@@ -54,15 +54,19 @@ export default function GuessWhichActorPage() {
   const handleGuess = (isNepoBaby: boolean) => {
     if (!actors) return;
     
+    // Get the first sentence of explanation to avoid scrolling
+    const explanation = actors.nepoActors[0].explanation || '';
+    const firstSentence = explanation.split('.')?.[0] || 'Famous family connections';
+    
     if (isNepoBaby) {
       setGuessResult({
         correct: true,
-        message: `Correct! ${actors.nepoActors[0].actorName} is a nepo baby. ${actors.nepoActors[0].explanation || ''}`
+        message: `Correct! ${actors.nepoActors[0].actorName} is a nepo baby. ${firstSentence}.`
       });
     } else {
       setGuessResult({
         correct: false,
-        message: `Wrong! ${actors.nepoActors[0].actorName} is the nepo baby. ${actors.nepoActors[0].explanation || ''}`
+        message: `Wrong! ${actors.nepoActors[0].actorName} is the nepo baby. ${firstSentence}.`
       });
     }
   }
@@ -118,12 +122,12 @@ export default function GuessWhichActorPage() {
         
         {guessResult && (
           <div 
-            className={`p-4 mt-4 max-w-xl overflow-auto max-h-40 rounded-lg ${guessResult.correct ? 'bg-emerald-900/50 border border-emerald-500' : 'bg-red-900/50 border border-red-500'}`}
+            className={`p-5 mt-4 max-w-xl rounded-lg ${guessResult.correct ? 'bg-emerald-900/70 border border-emerald-400' : 'bg-red-900/70 border border-red-400'}`}
             style={{
-              boxShadow: `0 0 15px ${guessResult.correct ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)'}`
+              boxShadow: `0 0 15px ${guessResult.correct ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`
             }}
           >
-            <p className={`text-base ${guessResult.correct ? 'text-emerald-200' : 'text-red-200'}`}>
+            <p className={`text-lg font-medium leading-relaxed ${guessResult.correct ? 'text-white' : 'text-white'}`}>
               {guessResult.correct ? '⭐ ' : '❌ '}
               {guessResult.message}
             </p>
@@ -145,7 +149,7 @@ export default function GuessWhichActorPage() {
             href="/" 
             className="px-6 py-3 border border-gray-600 bg-gray-800 transition-colors flex items-center justify-center hover:bg-gray-700 font-medium text-cyan-300 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105"
           >
-            Back
+            Instructions
           </Link>
         </div>
       </main>
