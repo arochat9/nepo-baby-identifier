@@ -78,13 +78,13 @@ export default function GuessWhichActorPage() {
         background: 'radial-gradient(circle at top left, #3a1a54, #111111), linear-gradient(to bottom right, #111111, #1c1c3d)'
       }}
     >
-      <main className="w-full max-w-4xl mx-auto flex flex-col gap-[15px] sm:gap-[20px] items-center py-6 sm:py-8 px-4 sm:px-8 bg-gray-800/70 backdrop-blur-md rounded-xl border border-gray-700 shadow-2xl" 
+      <main className="w-full max-w-4xl mx-auto flex flex-col gap-[15px] sm:gap-[12px] items-center py-6 sm:py-5 px-4 sm:px-8 bg-gray-800/70 backdrop-blur-md rounded-xl border border-gray-700 shadow-2xl" 
         style={{
           boxShadow: '0 15px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 0, 128, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.05)'
         }}
       >
         <h1 
-          className="text-4xl sm:text-5xl font-bold text-center tracking-tight" 
+          className="text-4xl sm:text-4xl font-bold text-center tracking-tight" 
           style={{ 
             background: 'linear-gradient(90deg, #0ea5e9 0%, #d946ef 50%, #10b981 100%)',
             WebkitBackgroundClip: 'text',
@@ -94,7 +94,7 @@ export default function GuessWhichActorPage() {
         >
           NEPO BABY
         </h1>
-        <p className="text-lg sm:text-xl font-semibold text-white text-center mb-2 sm:mb-4">Can you spot the Hollywood royalty?</p>
+        <p className="text-lg sm:text-lg font-semibold text-white text-center mb-2 sm:mb-2">Can you spot the Hollywood royalty?</p>
 
         <div className="flex flex-row gap-3 sm:gap-8 justify-center items-center w-full px-2 py-2">
           {actors && (
@@ -122,22 +122,22 @@ export default function GuessWhichActorPage() {
         
         {guessResult && (
           <div 
-            className={`p-4 sm:p-5 mt-2 sm:mt-4 w-full max-w-xl rounded-lg ${guessResult.correct ? 'bg-emerald-900/70 border border-emerald-400' : 'bg-red-900/70 border border-red-400'}`}
+            className={`p-4 sm:p-3 mt-2 sm:mt-2 w-full sm:max-w-3xl rounded-lg ${guessResult.correct ? 'bg-emerald-900/70 border border-emerald-400' : 'bg-red-900/70 border border-red-400'}`}
             style={{
               boxShadow: `0 0 15px ${guessResult.correct ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`
             }}
           >
-            <p className={`text-base sm:text-lg font-medium leading-relaxed ${guessResult.correct ? 'text-white' : 'text-white'}`}>
+            <p className={`text-base sm:text-base font-medium leading-relaxed ${guessResult.correct ? 'text-white' : 'text-white'}`}>
               {guessResult.correct ? '⭐ ' : '❌ '}
               {guessResult.message}
             </p>
           </div>
         )}
         
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4 sm:mt-6 w-full sm:w-auto">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 mt-4 sm:mt-3 w-full sm:w-auto">
           <button 
             onClick={handleActorRefresh}
-            className="w-full sm:w-auto px-5 sm:px-6 py-3 bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-medium rounded-lg hover:from-fuchsia-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+            className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-2 bg-gradient-to-r from-fuchsia-600 to-cyan-600 text-white font-medium rounded-lg hover:from-fuchsia-700 hover:to-cyan-700 transition-all shadow-md hover:shadow-lg transform hover:scale-105"
             style={{
               boxShadow: '0 4px 10px rgba(217, 70, 239, 0.4)'
             }}
@@ -147,7 +147,7 @@ export default function GuessWhichActorPage() {
 
           <Link 
             href="/" 
-            className="w-full sm:w-auto px-5 sm:px-6 py-3 border border-gray-600 bg-gray-800 transition-colors flex items-center justify-center hover:bg-gray-700 font-medium text-cyan-300 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105"
+            className="w-full sm:w-auto px-5 sm:px-6 py-3 sm:py-2 border border-gray-600 bg-gray-800 transition-colors flex items-center justify-center hover:bg-gray-700 font-medium text-cyan-300 rounded-lg shadow-md hover:shadow-lg transform hover:scale-105"
           >
             Instructions
           </Link>

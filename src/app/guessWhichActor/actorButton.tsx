@@ -10,7 +10,7 @@ interface ActorButtonProps {
 export default function ActorButton({ actor, isNepoBaby, onClick }: ActorButtonProps) {
     return (
         <button 
-            className="p-3 sm:p-5 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 flex-1 min-w-[130px] max-w-[48%] sm:max-w-[300px]"
+            className="p-3 sm:p-4 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-200 flex-1 min-w-[130px] max-w-[48%] sm:max-w-[300px] flex flex-col h-full"
             style={{
                 background: 'linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%)',
                 border: '2px solid #333',
@@ -30,9 +30,12 @@ export default function ActorButton({ actor, isNepoBaby, onClick }: ActorButtonP
                     }}
                 />
             </div>
-            <p className='break-words text-xs sm:text-sm mt-1 sm:mt-3 text-gray-200 font-medium line-clamp-1 sm:line-clamp-2'>
-                <span className="font-medium text-white line-clamp-1">{actor.knownFor?.[0]?.name || ""}</span>
-            </p>
+            <div className='break-words text-xs sm:text-sm mt-1 sm:mt-2 text-gray-200 font-medium flex-1'>
+                <div className="mb-1 sm:mb-0">Known for:</div>
+                <div className="font-medium text-white h-[50px] sm:h-[35px] overflow-y-auto text-[11px] sm:text-xs pr-1" style={{ WebkitMaskImage: 'linear-gradient(to bottom, black 85%, transparent 100%)' }}>
+                    {actor.knownFor?.map(credit => credit.name).join(", ") || "Unknown"}
+                </div>
+            </div>
         </button>
     );
 }
