@@ -51,7 +51,10 @@ Follow these steps to set up the project locally:
    cd nepo-baby-identifier
    ```
 
-2. **Install dependencies**:
+2. **Setup .env file**:
+   This just needs the client secret for the Foundry OSDK
+
+3. **Install dependencies**:
    First, visit the following URL to get the latest SDK for Palantir Foundry:
    [Palantir Foundry SDK Generation](https://magic.usw-3.palantirfoundry.com/workspace/developer-console/app/ri.third-party-applications.main.application.1adb359a-e205-404f-88f1-025f022e27de/sdk/generation?packageType=npm)
 
@@ -62,7 +65,7 @@ Follow these steps to set up the project locally:
    npm install @service-user-for-actor-apps/sdk@^0.5.0 @osdk/client@^2.1.5 @osdk/oauth@^1.0.0 @osdk/foundry@latest
    ```
 
-3. **Run the development server**:
+4. **Run the development server**:
 
    ```bash
    npm run dev
